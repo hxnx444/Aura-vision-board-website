@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script>
+        const savedTheme = localStorage.getItem('site_theme') || 'epic';
+        if(savedTheme !== 'epic') document.documentElement.classList.add(`theme-${savedTheme}`);
+    </script>
+</head>
+<body>
+    <canvas id="star-rain"></canvas>
+    <div class="app-container">
+        <header class="main-header">
+            <h1>AURA <span class="version">v1.0</span></h1>
+            <a href="signin.html" class="user-status" id="home-user-status" title="Click to Sign In">Guest</a>
+        </header>
+
+        <main class="home-grid">
+            <div class="hero-section" style="text-align: center;">
+                <h2 id="welcome-msg">Welcome Back</h2>
+                <p style="font-family: 'Press Start 2P', cursive; font-size: 0.6rem; color: var(--secondary); margin-top: 1.5rem; line-height: 2; text-shadow: 2px 2px #000;">
+                    <br>NEXT OBJECTIVE: DOMINATE REALITY
+                </p>
+            </div>
+
+            <nav class="main-nav">
+                <a href="dashboard.html" class="nav-card">
+                    <div class="icon">🔮</div>
+                    <h3>Dashboard</h3>
+                    <p>View stats, daily challenges, and XP.</p>
+                </a>
+
+                <a href="yearly-roadmap.html" class="nav-card">
+                    <div class="icon">🚀</div>
+                    <h3>Yearly Roadmap</h3>
+                    <p>Set long-term milestones and track progress.</p>
+                </a>
+
+                <a href="vision.html" class="nav-card">
+                    <div class="icon">🌌</div>
+                    <h3>Vision Board</h3>
+                    <p>Visualize your dreams on the canvas.</p>
+                </a>
+
+                <a href="monthly-calendar.html" class="nav-card">
+                    <div class="icon">🌙</div>
+                    <h3>Monthly Calendar</h3>
+                    <p>Plan your month day by day.</p>
+                </a>
+
+                <a href="yearly-calendar.html" class="nav-card">
+                    <div class="icon">🪐</div>
+                    <h3>Yearly Goal Map</h3>
+                    <p>See your entire year in pixels.</p>
+                </a>
+            </nav>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Aura</h4>
+                    <p>Gamify your personal growth. Treat goals as quests and habits as skill trees to bridge the gap between digital satisfaction and real-world achievement.</p>
+                    <p style="margin-top: 1rem; opacity: 0.7;">v1.0 (Stable) | Midnight Neon</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Uplink</h4>
+                    <p><strong>Dev:</strong> CyberArchitect_01</p>
+                    <p><strong>Email:</strong> <a href="mailto:admin@vision-os.net" style="color: var(--secondary); text-decoration: none;">admin@vision-os.net</a></p>
+                    <p><strong>HQ:</strong> Neo-Seattle, Sector 4</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Careers</h4>
+                    <p>Join the Network:</p>
+                    <ul>
+                        <li>🔹 Frontend Neural Engineer</li>
+                        <li>🔹 Backend Data Weaver</li>
+                        <li>🔹 UI/UX Holo-Designer</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Vision OS. All systems nominal.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure we have a robust default structure if starting fresh
+            const defaultStats = { name: 'Player1', level: 1, xp: 0, xpToNext: 100, streak: 0 };
+            let stats = JSON.parse(localStorage.getItem('player_stats')) || defaultStats;
+            
+            const statusEl = document.getElementById('home-user-status');
+            const welcomeEl = document.getElementById('welcome-msg');
+
+            if (statusEl) statusEl.textContent = `Lvl ${stats.level} ${stats.name}`;
+            
+            if (welcomeEl) {
+                welcomeEl.textContent = `Welcome, ${stats.name}`;
+                welcomeEl.style.cursor = 'pointer';
+                welcomeEl.title = "Click to edit name";
+                welcomeEl.onclick = () => {
+                    const newName = prompt("Enter your name:", stats.name);
+                    if (newName && newName.trim()) {
+                        stats.name = newName.trim();
+                        localStorage.setItem('player_stats', JSON.stringify(stats));
+                        welcomeEl.textContent = `Welcome, ${stats.name}`;
+                        if (statusEl) statusEl.textContent = `Lvl ${stats.level} ${stats.name}`;
+                    }
+                };
+            }
+        });
+    </script>
+    <script src="background-animation.js"></script>
+</body>
+</html>

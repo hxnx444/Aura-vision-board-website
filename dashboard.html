@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        const savedTheme = localStorage.getItem('site_theme') || 'epic';
+        if(savedTheme !== 'epic') document.documentElement.classList.add(`theme-${savedTheme}`);
+    </script>
+    <style>
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 0.5rem;
+        }
+        .achievement {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+            opacity: 0.4;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            font-size: 0.7rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .achievement.unlocked {
+            opacity: 1;
+            background: rgba(255,255,255,0.1);
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .ach-icon { font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+    <div class="background-engine">
+        <div class="scanlines"></div>
+    </div>
+
+    <nav class="side-nav">
+        <a href="index.html" class="nav-brand">A</a>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-item active" title="Dashboard"><i class="fas fa-microchip"></i></a>
+            <a href="vision.html" class="nav-item" title="Vision Canvas"><i class="fas fa-palette"></i></a>
+            <a href="monthly-calendar.html" class="nav-item" title="Monthly Calendar"><i class="fas fa-calendar-alt"></i></a>
+            <a href="yearly-roadmap.html" class="nav-item" title="Yearly Roadmap"><i class="fas fa-route"></i></a>
+            <a href="yearly-calendar.html" class="nav-item" title="Yearly Goal Map"><i class="fas fa-calendar-check"></i></a>
+        </div>
+        <button id="export-btn" class="nav-save" title="Export Strategy"><i class="fas fa-download"></i></button>
+        <button onclick="clearAllData()" class="nav-save" title="Clear All Data"><i class="fas fa-trash"></i></button>
+    </nav>
+
+    <main class="main-content">
+        <section id="dashboard" class="viewport">
+            <div class="player-header">
+                <div class="avatar-section">
+                    <div class="avatar" id="player-avatar">🧙‍♀️</div>
+                    <div class="player-info">
+                        <h1 class="player-name">Player Name</h1>
+                        <div class="stats-meta">
+                            <div class="level-info">Level <span id="player-level">1</span></div>
+                            <div class="streak-info" title="Daily Login Streak">🔥 <span id="player-streak">0</span> Days</div>
+                        </div>
+                        <div class="xp-bar">
+                            <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
+                            <span class="xp-text">0 / 100 XP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mood-selector">
+                    <button class="mood-btn active" data-mood="dreamy">🌸 Dreamy</button>
+                    <button class="mood-btn" data-mood="epic">⚔️ Epic</button>
+                    <button class="mood-btn" data-mood="cozy">☕ Cozy</button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card vision-hub">
+                    <h3>🎯 Vision Hub</h3>
+                    <div class="vision-preview" id="vision-preview">
+                        <div class="vision-item">🏆 Goal 1</div>
+                        <div class="vision-item">💼 Career</div>
+                        <div class="vision-item">❤️ Health</div>
+                    </div>
+                    <button class="action-btn" onclick="window.location.href='vision.html'">Enter Vision Canvas</button>
+                </div>
+
+                <div class="dashboard-card active-quests">
+                    <h3>📜 Active Quests</h3>
+                    <div id="quest-list">
+                        <!-- Quests loaded via JS -->
+                    </div>
+                    <button id="open-quests-btn" class="action-btn">Manage Quests</button>
+                </div>
+
+                <div class="dashboard-card daily-challenges">
+                    <h3>⚡ Daily Challenges</h3>
+                    <div id="challenge-list">
+                        <div class="challenge-item completed">
+                            <span>Drink 8 glasses of water</span>
+                            <span class="reward">+10 XP</span>
+                        </div>
+                        <div class="challenge-item">
+                            <span>Exercise for 30 mins</span>
+                            <span class="reward">+15 XP</span>
+                        </div>
+                    </div>
+                    <button id="refresh-challenges-btn" class="action-btn">New Daily Challenges</button>
+                </div>
+
+                <div class="dashboard-card skill-tree">
+                    <h3>🌟 Skill Tree</h3>
+                    <div class="skill-stats">
+                        <div class="skill">Productivity: <span class="skill-level">Lv. 3</span></div>
+                        <div class="skill">Health: <span class="skill-level">Lv. 2</span></div>
+                        <div class="skill">Creativity: <span class="skill-level">Lv. 4</span></div>
+                    </div>
+                    <button id="skill-tree-btn" class="action-btn">Manage Skills</button>
+                </div>
+
+                <div class="dashboard-card reminders">
+                    <h3>⏰ Reminders</h3>
+                    <div id="reminder-list">
+                        <!-- Reminders loaded via JS -->
+                    </div>
+                </div>
+
+                <div class="dashboard-card achievements">
+                    <h3>🏅 Achievements</h3>
+                    <div class="achievement-grid">
+                        <div class="achievement unlocked">First Goal</div>
+                        <div class="achievement">Week Streak</div>
+                        <div class="achievement">Vision Master</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card ai-sidekick">
+                    <h3>🤖 AI Mentor</h3>
+                    <div class="ai-message">
+                        <p>"Great progress today! Remember to celebrate small wins."</p>
+                    </div>
+                    <button class="action-btn">Get Advice</button>
+                </div>
+            </div>
+
+            <div class="motivational-quote">
+                <blockquote>"The only way to do great work is to love what you do." - Steve Jobs</blockquote>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Vision OS</h4>
+                    <p>Gamify your personal growth. Treat goals as quests and habits as skill trees to bridge the gap between digital satisfaction and real-world achievement.</p>
+                    <p style="margin-top: 1rem; opacity: 0.7;">v1.0 (Stable) | Midnight Neon</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Uplink</h4>
+                    <p><strong>Dev:</strong> CyberArchitect_01</p>
+                    <p><strong>Email:</strong> <a href="mailto:admin@vision-os.net" style="color: var(--secondary); text-decoration: none;">admin@vision-os.net</a></p>
+                    <p><strong>HQ:</strong> Neo-Seattle, Sector 4</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Careers</h4>
+                    <p>Join the Network:</p>
+                    <ul>
+                        <li>🔹 Frontend Neural Engineer</li>
+                        <li>🔹 Backend Data Weaver</li>
+                        <li>🔹 UI/UX Holo-Designer</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Vision OS. All systems nominal.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Skill Tree Modal -->
+    <div id="skill-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">Skill Manager</h2>
+            <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Adjust your skill levels to reflect your current abilities.</p>
+            
+            <form id="skill-modal-form">
+                <div class="question-card" style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--secondary);">⚡ Productivity</h4>
+                    <div class="range-group">
+                        <input type="range" min="1" max="10" value="5" name="prod_consistency" oninput="updateModalRank(this)">
+                        <span style="font-weight: bold; color: var(--secondary);">5</span>
+                        <span class="rank-display" style="width: 80px; text-align: right; font-size: 0.8rem; color: var(--text-dim);">Adept</span>
+                    </div>
+                </div>
+                <div class="question-card" style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--secondary);">❤️ Health</h4>
+                    <div class="range-group">
+                        <input type="range" min="1" max="10" value="5" name="health_rating" oninput="updateModalRank(this)">
+                        <span style="font-weight: bold; color: var(--secondary);">5</span>
+                        <span class="rank-display" style="width: 80px; text-align: right; font-size: 0.8rem; color: var(--text-dim);">Adept</span>
+                    </div>
+                </div>
+                <div class="question-card" style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--secondary);">🎨 Creativity</h4>
+                    <div class="range-group">
+                        <input type="range" min="1" max="10" value="5" name="creat_rating" oninput="updateModalRank(this)">
+                        <span style="font-weight: bold; color: var(--secondary);">5</span>
+                        <span class="rank-display" style="width: 80px; text-align: right; font-size: 0.8rem; color: var(--text-dim);">Adept</span>
+                    </div>
+                </div>
+                <button type="submit" class="action-btn">Update Levels</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quest Board Modal -->
+    <div id="quest-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">Quest Board</h2>
+            
+            <!-- Add Quest Form -->
+            <div class="input-group">
+                <input type="text" id="modal-quest-input" placeholder="New Quest Objective...">
+                <select id="modal-quest-difficulty">
+                    <option value="10">Easy (10 XP)</option>
+                    <option value="30">Med (30 XP)</option>
+                    <option value="50">Hard (50 XP)</option>
+                </select>
+                <button id="modal-add-quest-btn" class="action-btn">+</button>
+            </div>
+
+            <h3 style="color: var(--secondary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 1rem;">Active Quests</h3>
+            <div id="modal-quest-list" style="max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem;">
+                <!-- Quests injected here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
+    <script>
+        function updateModalRank(input) {
+            const val = parseInt(input.value);
+            input.nextElementSibling.textContent = val;
+            let rank = "Novice";
+            if (val >= 2) rank = "Apprentice";
+            if (val >= 4) rank = "Adept";
+            if (val >= 6) rank = "Expert";
+            if (val >= 8) rank = "Master";
+            if (val >= 10) rank = "Grandmaster";
+            input.nextElementSibling.nextElementSibling.textContent = rank;
+        }
+    </script>
+    <script src="background-animation.js"></script>
+</body>
+</html>

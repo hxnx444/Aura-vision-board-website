@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Identity</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-engine">
+        <div class="scanlines"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="main-header">
+            <h1>VISION OS</h1>
+            <a href="index.html" class="user-status">Back</a>
+        </header>
+
+        <div class="signin-wrapper">
+            <div class="signin-card">
+                <h2>Identify Yourself</h2>
+                <p style="color: var(--text-dim); margin-top: 0.5rem;">Enter your alias to begin the simulation.</p>
+                <input type="text" id="username-input" class="signin-input" placeholder="Enter Name..." autocomplete="off">
+                <button id="signin-btn" class="action-btn">INITIALIZE SESSION</button>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Vision OS</h4>
+                    <p>Gamify your personal growth. Treat goals as quests and habits as skill trees to bridge the gap between digital satisfaction and real-world achievement.</p>
+                    <p style="margin-top: 1rem; opacity: 0.7;">v1.0 (Stable) | Midnight Neon</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Uplink</h4>
+                    <p><strong>Dev:</strong> CyberArchitect_01</p>
+                    <p><strong>Email:</strong> <a href="mailto:admin@vision-os.net" style="color: var(--secondary); text-decoration: none;">admin@vision-os.net</a></p>
+                    <p><strong>HQ:</strong> Neo-Seattle, Sector 4</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Careers</h4>
+                    <p>Join the Network:</p>
+                    <ul>
+                        <li>🔹 Frontend Neural Engineer</li>
+                        <li>🔹 Backend Data Weaver</li>
+                        <li>🔹 UI/UX Holo-Designer</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Vision OS. All systems nominal.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="signin.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Skill Assessment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        const savedTheme = localStorage.getItem('site_theme') || 'epic';
+        if(savedTheme !== 'epic') document.documentElement.classList.add(`theme-${savedTheme}`);
+    </script>
+    <style>
+        .question-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            border: var(--border-width) var(--border-style) rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .question-card h4 { color: var(--primary); margin-bottom: 1rem; }
+        .range-container { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+        input[type="range"] { flex: 1; accent-color: var(--secondary); cursor: pointer; }
+        .score-val { font-weight: bold; color: var(--secondary); width: 30px; text-align: right; font-family: var(--font-header); }
+    </style>
+</head>
+<body>
+    <div class="background-engine">
+        <div class="scanlines"></div>
+    </div>
+
+    <nav class="side-nav">
+        <a href="index.html" class="nav-brand">A</a>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-item" title="Dashboard"><i class="fas fa-microchip"></i></a>
+            <a href="vision.html" class="nav-item" title="Vision Canvas"><i class="fas fa-palette"></i></a>
+            <a href="monthly-calendar.html" class="nav-item" title="Monthly Calendar"><i class="fas fa-calendar-alt"></i></a>
+            <a href="yearly-roadmap.html" class="nav-item" title="Yearly Roadmap"><i class="fas fa-route"></i></a>
+            <a href="yearly-calendar.html" class="nav-item" title="Yearly Goal Map"><i class="fas fa-calendar-check"></i></a>
+        </div>
+        <button onclick="clearAllData()" class="nav-save" title="Clear All Data"><i class="fas fa-trash"></i></button>
+    </nav>
+
+    <main class="main-content">
+        <section class="viewport">
+            <h2 class="sub-header">Monthly Skill Assessment</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-dim);">Reflect on your progress to level up your core stats.</p>
+
+            <!-- Current Stats Display -->
+            <div class="question-card" style="text-align: center; border-color: var(--secondary);">
+                <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">Current Stats</h4>
+                <div style="display: flex; justify-content: space-around; font-family: var(--font-header); font-size: 0.8rem;">
+                    <div id="current-prod">⚡ Prod: Lv. 1</div>
+                    <div id="current-health">❤️ Health: Lv. 1</div>
+                    <div id="current-creat">🎨 Creat: Lv. 1</div>
+                </div>
+            </div>
+
+            <form id="skill-assessment-form">
+                <!-- Productivity Section -->
+                <div class="question-card">
+                    <h4>⚡ Productivity</h4>
+                    <p style="margin-bottom:0.5rem; font-size:0.9rem; color: var(--text);">How consistent were you with your daily tasks this month?</p>
+                    <div class="range-container">
+                        <span>1</span>
+                        <input type="range" min="1" max="10" value="5" name="prod_consistency" oninput="this.nextElementSibling.value = this.value">
+                        <output class="score-val">5</output>
+                    </div>
+                </div>
+
+                <!-- Health Section -->
+                <div class="question-card">
+                    <h4>❤️ Health & Vitality</h4>
+                    <p style="margin-bottom:0.5rem; font-size:0.9rem; color: var(--text);">Rate your physical activity consistency and sleep quality.</p>
+                    <div class="range-container">
+                        <span>1</span>
+                        <input type="range" min="1" max="10" value="5" name="health_rating" oninput="this.nextElementSibling.value = this.value">
+                        <output class="score-val">5</output>
+                    </div>
+                </div>
+
+                <!-- Creativity Section -->
+                <div class="question-card">
+                    <h4>🎨 Creativity & Learning</h4>
+                    <p style="margin-bottom:0.5rem; font-size:0.9rem; color: var(--text);">Did you explore new ideas, learn a skill, or create something new?</p>
+                    <div class="range-container">
+                        <span>1</span>
+                        <input type="range" min="1" max="10" value="5" name="creat_rating" oninput="this.nextElementSibling.value = this.value">
+                        <output class="score-val">5</output>
+                    </div>
+                </div>
+
+                <button type="submit" class="action-btn" style="background: var(--primary); color: #000; font-weight: bold;">Submit Assessment & Level Up</button>
+            </form>
+        </section>
+
+        <footer class="app-footer">
+             <div class="footer-bottom"><p>&copy; 2025 Vision OS. All systems nominal.</p></div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="monthly-questionnaire.js"></script>
+    <script>
+        // Load current stats on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const skills = JSON.parse(localStorage.getItem('skill_levels')) || { productivity: 1, health: 1, creativity: 1 };
+            const prodEl = document.getElementById('current-prod');
+            const healthEl = document.getElementById('current-health');
+            const creatEl = document.getElementById('current-creat');
+            if(prodEl) prodEl.textContent = `⚡ Prod: Lv. ${skills.productivity}`;
+            if(healthEl) healthEl.textContent = `❤️ Health: Lv. ${skills.health}`;
+            if(creatEl) creatEl.textContent = `🎨 Creat: Lv. ${skills.creativity}`;
+        });
+    </script>
+    <script src="background-animation.js"></script>
+</body>
+</html>
