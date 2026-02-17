@@ -1,5 +1,5 @@
 # Aura Vision Board Website 🐾✨
-![Aura Demo](./assets/demo.gif)
+![Aura Demo](./assetsdemo.gif)
 
 > a playful yet functional space to visualize goals, track progress, and gamify personal growth.
 
