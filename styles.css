@@ -1,56 +1,56 @@
 :root {
-    /* Epic: Cyber Void */
-    --bg-color: #050505;   /* Deep Void */
-    --card-bg: #141414;    /* Softened Dark */
-    --primary: #ff0f5b;    /* Vibrant Crimson */
-    --secondary: #00eaff;  /* Electric Cyan */
-    --text: #ffffff;
-    --text-dim: #cccccc;
+    /* Epic: Deep Signal (refreshed Cyber Void) */
+    --bg-color: #0a0e17;   /* Deep Space Navy */
+    --card-bg: #131a2b;    /* Slate Panel */
+    --primary: #00e5ff;    /* Electric Cyan */
+    --secondary: #ff2e92;  /* Hot Magenta */
+    --text: #eef2f9;
+    --text-dim: #9aa5b8;
     --font-main: 'Inter', sans-serif;
     --font-header: 'Press Start 2P', cursive;
-    --border-radius: 0px;  /* Sharp edges */
+    --border-radius: 4px;  /* Slightly softened edges */
     --border-width: 2px;
     --border-style: solid;
-    --btn-radius: 0px;
+    --btn-radius: 4px;
     --shadow-style: 0 0 15px var(--primary); /* Neon Glow */
-    --bg-image: linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    --bg-image: linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
     --bg-size: 50px 50px;
 }
 
 :root.theme-dreamy {
-    /* Dreamy: Candy Kingdom */
-    --bg-color: #2a1b3d;   /* Ethereal Twilight */
-    --card-bg: #442c61;    /* Soft Plum Card */
-    --primary: #ff9ecd;    /* Magical Pink */
-    --secondary: #bde0fe;  /* Cloud Blue */
-    --text: #ffffff;       /* Max Contrast */
-    --text-dim: #e6dcf0;
+    /* Dreamy: Dusk Bloom (refreshed Candy Kingdom) */
+    --bg-color: #241934;   /* Deeper Twilight */
+    --card-bg: #3a2a52;    /* Soft Plum Card */
+    --primary: #ff8fc7;    /* Magical Pink */
+    --secondary: #8ec9ff;  /* Sky Blue */
+    --text: #fdfaff;       /* Max Contrast */
+    --text-dim: #cbb8e0;
     --font-main: 'Segoe UI', sans-serif;
     --font-header: 'Georgia', serif;
-    --border-radius: 25px;
+    --border-radius: 24px;
     --border-width: 2px;
     --border-style: solid;
-    --btn-radius: 25px;
-    --shadow-style: 0 4px 15px rgba(0, 0, 0, 0.2); /* Clean Soft Shadow */
-    --bg-image: radial-gradient(circle at top, rgba(255, 158, 205, 0.15), transparent 60%), radial-gradient(circle at bottom, rgba(162, 210, 255, 0.1), transparent 60%);
+    --btn-radius: 24px;
+    --shadow-style: 0 4px 15px rgba(0, 0, 0, 0.25); /* Clean Soft Shadow */
+    --bg-image: radial-gradient(circle at top, rgba(255, 143, 199, 0.15), transparent 60%), radial-gradient(circle at bottom, rgba(142, 201, 255, 0.12), transparent 60%);
     --bg-size: 100% 100%;
 }
 
 :root.theme-cozy {
-    /* Cozy: Midnight Lo-Fi */
-    --bg-color: #1a1614;   /* Warm Espresso */
-    --card-bg: #2c2520;    /* Warm Mocha */
-    --primary: #ffdb99;    /* Soft Peach */
-    --secondary: #d4e157;  /* Muted Lime */
-    --text: #ffffff;
-    --text-dim: #b0b0b0;
+    /* Cozy: Autumn Cabin (refreshed Midnight Lo-Fi) */
+    --bg-color: #1c1512;   /* Warm Espresso */
+    --card-bg: #2e241d;    /* Warm Mocha */
+    --primary: #f4a259;    /* Warm Amber */
+    --secondary: #9cc069;  /* Sage Green */
+    --text: #f5ece3;
+    --text-dim: #b8a99b;
     --font-main: 'Courier New', monospace;
     --font-header: 'Courier New', monospace;
-    --border-radius: 12px;
+    --border-radius: 14px;
     --border-width: 2px;
     --border-style: dashed;
-    --btn-radius: 12px;
-    --shadow-style: 6px 6px 0px rgba(0,0,0,0.5); /* Retro Block Shadow */
+    --btn-radius: 14px;
+    --shadow-style: 6px 6px 0px rgba(0,0,0,0.4); /* Retro Block Shadow */
     --bg-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     --bg-size: 24px 24px;
 }
